@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <a href="{{url_for('index')}}">Главная</a>
+    <div>
+      <h1 class="text-primary">Список туров для администратора</h1>
+    </div>
+    <div>
+      <form method="post" action="/add_trip">
+        <button type="submit" class="btn btn-primary">Добавить</button>
+      </form>      
+    </div>
+    <table class ="table">
+      <thead class ="thead">
+        <tr>
+          <th>#</th>
+          <th>Наименование</th>
+          <th>Подробности</th>
+          <th>Дата начала</th>
+          <th>Дата окончания</th>
+          <th>All inclusive</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody >
+        {% for trip in trips %}
+          <tr>
+            <th>{{trip.id}}</th>
+            <th>{{trip.name}}</th>
+            <th>{{trip.description}}</th>
+            <th>{{trip.date_begin}}</th>
+            <th>{{trip.date_end}}</th>    
+            <th>{{trip.is_all_inc}}</th>   
+            <th>
+              <form action="{{ url_for('delete', id=trip.id) }}" method="post">
+                <button type="submit" class="btn btn-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+                    <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+                  </svg>
+                </button>
+              </form>
+            </th>   
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>      
+  </body>
+</html>
